@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-
 from faker import Faker
 
 
@@ -11,7 +10,10 @@ def load_datas_from_csv(file_path):
     df = pd.read_csv(file_path)
     return df
 
-def generate_names_based_on_sex(df, sex_column='sex', first_name_column='first_name', last_name_column='last_name'):
+def generate_names_based_on_sex(
+        df, sex_column='sex',
+        first_name_column='first_name',
+        last_name_column='last_name'):
     """
     Génère des prénoms et des noms en fonction de la colonne 'sex' dans un DataFrame.
 
