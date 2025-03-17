@@ -1,9 +1,10 @@
-from datas.datas import load_datas_from_csv
+from datas.datas import load_datas_from_csv, generate_names_based_on_sex
 
 
 def main():
-    load_datas_from_csv("csv/insurance.csv")
-
+    df = load_datas_from_csv("csv/insurance.csv")
+    generate_names_based_on_sex(df)
+    print(df.head(10))
 
 if __name__ == "__main__":
     main()
