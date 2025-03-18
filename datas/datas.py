@@ -1,4 +1,5 @@
 import os
+
 import pandas as pd
 from faker import Faker
 
@@ -19,8 +20,8 @@ def generate_names_based_on_sex(
     fake = Faker()
     # Générer des prénoms et des noms en fonction du sexe
     df[first_name_column] = df[sex_column].apply(
-        lambda x: fake.first_name_male() if x == 'male' else fake.first_name_female()
+        lambda x: fake.first_name_male()
+        if x == 'male' else fake.first_name_female()
     )
     df[last_name_column] = df[sex_column].apply(lambda x: fake.last_name())
     return df
-

@@ -65,7 +65,10 @@ def read_all_insureds(db: Session = Depends(get_db)):
 
 # UPDATE : Mettre à jour un assuré
 @router.put("/insured/{insured_id}", response_model=InsuredResponse)
-def update_insured(insured_id: int, insured: InsuredCreate, db: Session = Depends(get_db)):
+def update_insured(
+        insured_id: int,
+        insured: InsuredCreate,
+        db: Session = Depends(get_db)):
     db_insured = db.query(Insured).filter_by(id=insured_id).first()
     if db_insured is None:
         raise HTTPException(status_code=404, detail="Assuré non trouvé")

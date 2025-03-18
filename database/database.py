@@ -18,6 +18,7 @@ def get_db():
     finally:
         db.close()
 
+
 # URL de la base de données SQLite
 DATABASE_URL = "sqlite:///medical_costs.db"
 

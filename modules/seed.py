@@ -1,6 +1,4 @@
-from sqlalchemy import select, MetaData, Table
-
-from database.database import SessionLocal, engine
+from database.database import SessionLocal
 from models.insured import Insured
 
 

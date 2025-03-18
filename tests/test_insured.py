@@ -45,7 +45,8 @@ def test_read_insured(db_session):
     db_session.commit()
 
     # Récupérer l'assuré depuis la base de données
-    retrieved_insured = db_session.query(Insured).filter_by(first_name="Jane").first()
+    retrieved_insured = (db_session.query(Insured)
+                         .filter_by(first_name="Jane").first())
 
     # Vérifier les données
     assert retrieved_insured is not None
@@ -76,7 +77,8 @@ def test_update_insured(db_session):
     db_session.commit()
 
     # Récupérer l'assuré mis à jour
-    updated_insured = db_session.query(Insured).filter_by(first_name="Alice").first()
+    updated_insured = (db_session.query(Insured)
+                       .filter_by(first_name="Alice").first())
 
     # Vérifier les modifications
     assert updated_insured.age == 41
@@ -105,7 +107,8 @@ def test_delete_insured(db_session):
     db_session.commit()
 
     # Vérifier que l'assuré a été supprimé
-    deleted_insured = db_session.query(Insured).filter_by(first_name="Bob").first()
+    deleted_insured = (db_session.query(Insured)
+                       .filter_by(first_name="Bob").first())
     assert deleted_insured is None
 
 
