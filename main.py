@@ -10,6 +10,7 @@ app = FastAPI()
 # Inclure le routeur avec le préfixe "/api"
 app.include_router(insured_router, prefix="/api")
 
+
 def main():
     df = load_datas_from_csv("csv/insurance.csv")
     df = generate_names_based_on_sex(df)
@@ -18,7 +19,6 @@ def main():
     seed_insured(df)
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
 
 if __name__ == "__main__":
     main()
