@@ -17,8 +17,8 @@ def main():
     print(df.head(10))
     create_tables()
     seed_insured(df)
-
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
 
 if __name__ == "__main__":
     main()
