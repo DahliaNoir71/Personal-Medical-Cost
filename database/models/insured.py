@@ -1,8 +1,9 @@
 from sqlalchemy import Column, Integer, String, Float
-from database import Base
+from database.models.base import Base
 
-class MedicalData(Base):
-    __tablename__ = "medical_datas"
+
+class Insured(Base):
+    __tablename__ = "insured"
 
     id = Column(Integer, primary_key=True, index=True)
     age = Column(Integer)
