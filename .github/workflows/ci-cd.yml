@@ -30,10 +30,10 @@ jobs:
         run: |
           python -m pytest  # Exécute les tests avec pytest
 
-#      - name: Run linting
-#        run: |
-#          pip install flake8  # Installe flake8 pour le linting
-#          flake8 .  # Exécute flake8 pour vérifier le style du code
+      - name: Run linting
+        run: |
+          pip install flake8  # Installe flake8 pour le linting
+          flake8 .  # Exécute flake8 pour vérifier le style du code
 
   deploy:
     runs-on: ubuntu-latest
