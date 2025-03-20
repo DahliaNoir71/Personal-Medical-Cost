@@ -36,7 +36,8 @@ def register(user_create: UserCreate, db: Session = Depends(get_db)):
     # Vérifier si l'utilisateur existe déjà
     db_user = db.query(User).filter_by(username=user_create.username).first()
     if db_user:
-        raise HTTPException(status_code=400, detail="Username already registered")
+        raise HTTPException(status_code=400,
+                            detail="Username already registered")
 
     # Hacher le mot de passe
     hashed_password = hash_password(user_create.password)
