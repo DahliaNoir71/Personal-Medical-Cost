@@ -7,7 +7,7 @@ from models.user import User
 from utils.password import hash_password
 
 # Créez un routeur FastAPI
-user = APIRouter()
+user_router = APIRouter()
 
 
 # Modèle Pydantic pour la création de compte
@@ -17,7 +17,6 @@ class UserCreate(BaseModel):
     password: str
     first_name: str
     last_name: str
-    is_active: str
 
 
 class UserResponse(BaseModel):
@@ -32,24 +31,27 @@ class UserResponse(BaseModel):
 
 
 # Route pour créer un compte
-@user.post("/register/")
+@user_router.post("/register/")
 def register(user_create: UserCreate, db: Session = Depends(get_db)):
     # Vérifier si l'utilisateur existe déjà
-    db_user = db.query(User).filter_by(username=user.username).first()
+    db_user = db.query(User).filter_by(username=user_create.username).first()
     if db_user:
-        raise HTTPException(status_code=400,
-                            detail="Username already registered")
+        raise HTTPException(status_code=400, detail="Username already registered")
+
     # Hacher le mot de passe
-    hashed_password = hash_password(user.password)
+    hashed_password = hash_password(user_create.password)
 
     # Créer un nouvel utilisateur
     db_user = User(
-        username=user.username,
-        email=user.email,
+        username=user_create.username,
+        email=user_create.email,
         password_hash=hashed_password,
-        role=user.role
+        first_name=user_create.first_name,
+        last_name=user_create.last_name
     )
+
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
+
     return {"message": "User created successfully"}

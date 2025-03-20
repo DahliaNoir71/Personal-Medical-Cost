@@ -6,7 +6,7 @@ from database.database import get_db
 from models.insured import Insured
 
 # Créez un routeur FastAPI
-insured = APIRouter()
+insured_router = APIRouter()
 
 
 class InsuredCreate(BaseModel):
@@ -39,7 +39,7 @@ class InsuredResponse(BaseModel):
 
 
 # CREATE : Ajouter un nouvel assuré
-@insured.post("/insured/", response_model=InsuredResponse)
+@insured_router.post("/insured/", response_model=InsuredResponse)
 def create_insured(insured_create: InsuredCreate,
                    db: Session = Depends(get_db)):
     db_insured = Insured(**insured_create.model_dump())
@@ -50,7 +50,7 @@ def create_insured(insured_create: InsuredCreate,
 
 
 # READ : Récupérer un assuré par ID
-@insured.get("/insured/{insured_id}", response_model=InsuredResponse)
+@insured_router.get("/insured/{insured_id}", response_model=InsuredResponse)
 def read_insured(insured_id: int, db: Session = Depends(get_db)):
     db_insured = db.query(Insured).filter_by(id=insured_id).first()
     if db_insured is None:
@@ -59,13 +59,13 @@ def read_insured(insured_id: int, db: Session = Depends(get_db)):
 
 
 # READ ALL : Récupérer tous les assurés
-@insured.get("/insured/", response_model=list[InsuredResponse])
+@insured_router.get("/insured/", response_model=list[InsuredResponse])
 def read_all_insureds(db: Session = Depends(get_db)):
     return db.query(Insured).all()
 
 
 # UPDATE : Mettre à jour un assuré
-@insured.put("/insured/{insured_id}", response_model=InsuredResponse)
+@insured_router.put("/insured/{insured_id}", response_model=InsuredResponse)
 def update_insured(
         insured_id: int,
         insured_create: InsuredCreate,
@@ -83,7 +83,7 @@ def update_insured(
 
 
 # DELETE : Supprimer un assuré
-@insured.delete("/insured/{insured_id}", response_model=InsuredResponse)
+@insured_router.delete("/insured/{insured_id}", response_model=InsuredResponse)
 def delete_insured(insured_id: int, db: Session = Depends(get_db)):
     db_insured = db.query(Insured).filter_by(id=insured_id).first()
     if db_insured is None:
