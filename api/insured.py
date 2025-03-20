@@ -40,7 +40,8 @@ class InsuredResponse(BaseModel):
 
 # CREATE : Ajouter un nouvel assuré
 @insured.post("/insured/", response_model=InsuredResponse)
-def create_insured(insured_create: InsuredCreate, db: Session = Depends(get_db)):
+def create_insured(insured_create: InsuredCreate,
+                   db: Session = Depends(get_db)):
     db_insured = Insured(**insured_create.model_dump())
     db.add(db_insured)
     db.commit()
